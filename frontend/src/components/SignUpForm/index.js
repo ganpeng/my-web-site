@@ -6,6 +6,7 @@ import { Input, Button, Icon, Alert } from 'antd'
 const InputGroup = Input.Group
 
 import { signUpFormValidator as validate } from '../../utils/validator'
+import CountDown from '../CountDown/'
 
 const renderField = ({input, type, size, label, prefix, meta: {touched, error}}) => {
   return (
@@ -23,7 +24,7 @@ const renderField = ({input, type, size, label, prefix, meta: {touched, error}})
   )
 }
 
-const codeRenderField = ({input, type, size, label, prefix, meta: {touched, error}}) => {
+const codeRenderField = ({input, type, size, label, prefix, mobile, meta: {touched, error}}) => {
   return (
     <div>
       <InputGroup compact>
@@ -35,7 +36,7 @@ const codeRenderField = ({input, type, size, label, prefix, meta: {touched, erro
           prefix={prefix}
           style={{marginBottom: '10px', width: '40%', marginRight: '20px'}}
         />
-        <Button size="large" type="primary">获取验证码</Button>
+        <CountDown count={10}/>
       </InputGroup>
       {touched && (error && <Alert type="error" message={error} showIcon={true} />)}
     </div>
@@ -56,6 +57,9 @@ class SignUpForm extends Component {
 
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props
+    console.log('heheheehe')
+    console.log(this.props)
+    console.log('heheheehe')
     return (
       <div className="signup-form, form">
         <h2 className="title">SignUp</h2>
@@ -74,6 +78,7 @@ class SignUpForm extends Component {
             type="text"
             label="验证码"
             size="large"
+            mobileNode={this.mobile}
             prefix={<Icon type="message"/>}
           />
           <Field

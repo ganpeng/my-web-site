@@ -1,4 +1,5 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux'
 
 
 import SignUpForm from '../../components/SignUpForm/'
@@ -28,8 +29,11 @@ class SignUpPage extends Component {
       <div>
         <SignUpForm onSubmit={this.handleSubmit}/>
       </div>
-    );
+    )
   }
 }
 
-export default SignUpPage;
+
+
+
+export default SignUpPage

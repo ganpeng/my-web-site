@@ -10,14 +10,32 @@ class CountDown extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      count: 60,
+      count: this.props.count || 60,
       liked: true
     }
+
+    this.handleClick = this.handleClick.bind(this)
   }
 
+  handleClick() {
 
-
-
+    if(this.state.liked) {
+      this.timer = setInterval(() => {
+        let count = this.state.count
+        this.state.liked = false
+        count--
+        if (count < 1) {
+          this.setState({
+            liked: true,
+            count: this.props.count || 60
+          })
+          clearInterval(this.timer)
+        } else {
+          this.setState({ count })
+        }
+      }, 1000)
+    }
+  }
 
 
   render() {
@@ -28,6 +46,8 @@ class CountDown extends Component {
       <Button
         type="primary"
         size="large"
+        disabled={!this.state.liked}
+        onClick={this.handleClick}
       >{text}</Button>
     );
   }
