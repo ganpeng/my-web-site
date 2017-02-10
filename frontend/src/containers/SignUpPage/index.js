@@ -1,5 +1,8 @@
 import React, { Component, PropTypes } from 'react';
 
+
+import SignUpForm from '../../components/SignUpForm/'
+
 class SignUpPage extends Component {
   static propTypes = {
     children: PropTypes.node,
@@ -8,12 +11,22 @@ class SignUpPage extends Component {
 
   constructor(props) {
     super(props);
+    this.handleSubmit = this.handleSubmit.bind(this)
+  }
+
+
+  handleSubmit(values) {
+    new Promise((resolve, reject) => {
+      setTimeout(() => {
+        console.log(values)
+      }, 3000)
+    })
   }
 
   render() {
     return (
       <div>
-        <h2>SignUpPage</h2>
+        <SignUpForm onSubmit={this.handleSubmit}/>
       </div>
     );
   }

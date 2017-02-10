@@ -37,7 +37,7 @@ class LoginForm extends Component {
   render() {
     const { handleSubmit, pristine, reset, submitting } = this.props
     return (
-      <div className="login-form">
+      <div className="login-form, form">
         <h2 className="title">Login</h2>
         <form onSubmit={handleSubmit}>
           <Field
