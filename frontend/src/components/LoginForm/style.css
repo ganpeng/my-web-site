@@ -1,0 +1,16 @@
+.login-form {
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%, -50%);
+  width:20%;
+  padding: 40px 20px;
+  border: 1px solid #dfdfdf;
+  border-radius:6px;
+  box-shadow:0 0 22px rgba(0, 0, 0, 0.1);
+}
+
+.login-form .title {
+  margin-bottom:20px;
+  font-size:20px;
+}
