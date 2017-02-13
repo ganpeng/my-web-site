@@ -2,7 +2,7 @@ import { isEmail, isEmpty, isAlphanumeric, equals, isMobilePhone, isLength, isNu
 import { isUndefined } from 'lodash'
 
 
-const phoneReg = /^1[3|4|5|7|8]\d{9}$/
+export const phoneReg = /^1[3|4|5|7|8]\d{9}$/
 
 export const loginFormValidator = values => {
   let errors = {}

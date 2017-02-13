@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react';
-import { Row, Col } from 'antd'
 
 import LoginForm from '../../components/LoginForm/'
 import './style.css'
@@ -28,7 +27,7 @@ class LoginPage extends Component {
 
   render() {
     return (
-      <div className="login-form-container">
+      <div className="login-form-container form-container">
         <LoginForm onSubmit={this.handleSubmit} />
       </div>
     );

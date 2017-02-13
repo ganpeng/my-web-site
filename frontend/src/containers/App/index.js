@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react'
-import { Match, Route } from 'react-router-dom'
+import { Route } from 'react-router-dom'
 
 import './style.css'
 
