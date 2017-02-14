@@ -38,7 +38,7 @@ const codeRenderField = ({input, type, size, label, prefix, checkMobile, getCode
           prefix={prefix}
           style={{marginBottom: '10px', width: '40%', marginRight: '20px'}}
         />
-        <CountDown count={10} checkMobile={checkMobile} getCode={getCode} setError={setError}/>
+        <CountDown count={120} checkMobile={checkMobile} getCode={getCode} setError={setError}/>
       </InputGroup>
       {touched && (error && <Alert type="error" message={error} showIcon={true} />)}
     </div>

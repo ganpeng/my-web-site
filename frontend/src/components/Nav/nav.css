@@ -1,0 +1,19 @@
+nav {
+  overflow:hidden;
+  color:#fff;
+}
+
+.nav-list {
+  float:left;
+  overflow:hidden;
+}
+
+.nav-item {
+  float:left;
+  padding:8px 20px;
+}
+
+.auth-field {
+  float:right;
+}
+
