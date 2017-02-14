@@ -1,3 +1,5 @@
+import jwtDecode from 'jwt-decode'
+
 
 import { GET_CODE } from '../constants/api'
 import { SET_CURRENT_USER } from '../constants/'
@@ -34,4 +36,30 @@ export function setCurrentUser(user) {
     user
   }
 }
+
+
+export function login(user) {
+  return dispatch => {
+    fetch('/api/auth', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(user)
+    }).then((res) => res.json())
+      .then((result) => {
+        if (result.success) {
+          localStorage.setItem('token', result.token)
+          dispatch(setCurrentUser(jwtDecode(result.token).data))
+        } else {
+          dispatch(setError(result.message))
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }
+}
+
+
 

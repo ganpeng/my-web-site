@@ -35,10 +35,11 @@ class LoginForm extends Component {
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props
+    const { handleSubmit, pristine, reset, submitting, globalError, setError, deleteError } = this.props
     return (
       <div className="login-form, form">
         <h2 className="title">Login</h2>
+        {globalError && <Alert type="error" message={globalError} showIcon={true} closable={true} onClose={() => { console.log('delete'); deleteError() }} />}
         <form onSubmit={handleSubmit}>
           <Field
             name="identify"

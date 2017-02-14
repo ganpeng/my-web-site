@@ -3,6 +3,8 @@ import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 
 import LoginForm from '../../components/LoginForm/'
+import { login } from '../../actions/auth'
+import { setError, deleteError } from '../../actions/error'
 import './style.css'
 
 class LoginPage extends Component {
@@ -18,21 +20,16 @@ class LoginPage extends Component {
   }
 
   handleSubmit(values) {
-    new Promise((resolve, reject) => {
-      setTimeout(() => {
-        console.log(values)
-        resolve()
-      }, 4000)
-    })
+    this.props.login(values)
   }
 
 
   render() {
-    const { auth: { authenticated } } = this.props
+    const { auth: { authenticated }, globalError, setError, deleteError } = this.props
     return (
       <div className="login-form-container form-container">
         {
-          authenticated ? <Redirect to="/profile" /> : <LoginForm onSubmit={this.handleSubmit} />
+          authenticated ? <Redirect to="/profile" /> : <LoginForm onSubmit={this.handleSubmit} globalError={globalError} setError={setError} deleteError={deleteError} />
         }
       </div>
     );
@@ -42,10 +39,11 @@ class LoginPage extends Component {
 
 function mapStatesToProps(state) {
   return {
+    globalError: state.globalError,
     auth: state.auth
   }
 }
 
 
 
-export default connect(mapStatesToProps, {})(LoginPage);
+export default connect(mapStatesToProps, { login, setError, deleteError })(LoginPage);

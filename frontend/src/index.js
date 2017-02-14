@@ -16,7 +16,7 @@ import store from './store'
 const token = localStorage.getItem('token')
 
 if(token) {
-  store.dispatch(setCurrentUser(jwtDecode(token)))
+  store.dispatch(setCurrentUser(jwtDecode(token).data))
 }
 
 
