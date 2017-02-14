@@ -1,4 +1,6 @@
 import co from 'co'
+import jwt from 'jsonwebtoken'
+import * as _ from 'lodash'
 
 import User from '../models/user'
 import SmsCode from '../models/smscode'
@@ -25,18 +27,22 @@ export const addUser = (req, res) => {
     if (codeInfo.code === code) {
 
 
-      console.log(phone, hashedPassword)
-
-
       const user = yield User.create({
         phone,
         hashedPassword
       })
 
+
+
+      const token = jwt.sign({
+        data: _.pick(user, ['phone', '_id', 'createdAt', 'updatedAt'])
+      }, 'mysecretstring')
+
+
       return res.json({
         success: true,
         message: '创建用户成功',
-        user
+        token
       })
 
     } else {

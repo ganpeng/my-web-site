@@ -1,9 +1,11 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import SignUpForm from '../../components/SignUpForm/'
 import { getCode } from '../../actions/auth'
 import { addUser } from '../../actions/user'
+import { setError, deleteError } from '../../actions/error'
 
 class SignUpPage extends Component {
   static propTypes = {
@@ -18,24 +20,29 @@ class SignUpPage extends Component {
 
 
   handleSubmit(values) {
-    // new Promise((resolve, reject) => {
-    //   setTimeout(() => {
-    //     console.log(values)
-    //   }, 3000)
-    // })
     this.props.addUser({phone: values.mobile, code: values.code, password: values.password})
   }
 
   render() {
+    const { globalError, getCode, setError, deleteError, auth: { authenticated }  } = this.props
     return (
       <div className="signup-form-container form-container">
-        <SignUpForm onSubmit={this.handleSubmit} getCode={this.props.getCode}/>
+        {
+          authenticated ? (<Redirect to="/profile" />): <SignUpForm onSubmit={this.handleSubmit} getCode={getCode} globalError={globalError} setError={setError} deleteError={deleteError}/>
+        }
       </div>
     )
   }
 }
 
 
+function mapStatesToProps(state) {
+  return {
+    globalError: state.globalError,
+    auth: state.auth
+  }
+}
 
 
-export default connect(null, { getCode, addUser })(SignUpPage)
+
+export default connect(mapStatesToProps, { getCode, addUser, setError, deleteError })(SignUpPage)

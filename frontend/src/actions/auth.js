@@ -1,10 +1,10 @@
-import { SubmissionError } from 'redux-form'
 
 import { GET_CODE } from '../constants/api'
+import { SET_CURRENT_USER } from '../constants/'
+import { setError, deleteError } from './error'
 
 
-
-export function getCode(phone) {
+export function getCode(phone, cb) {
   return dispatch => {
     fetch(GET_CODE, {
       method: 'POST',
@@ -15,10 +15,10 @@ export function getCode(phone) {
     }).then((res) => res.json())
       .then((result) => {
         if (result.success) {
-          console.log(result)
+          console.log('success')
+          cb && cb()
         } else {
-          throw new SubmissionError( {errors: { mobile: 'error' }} )
-          return false
+          dispatch(setError(result.message))
         }
       })
       .catch((err) => {
@@ -28,6 +28,10 @@ export function getCode(phone) {
 }
 
 
-
-
+export function setCurrentUser(user) {
+  return {
+    type: SET_CURRENT_USER,
+    user
+  }
+}
 

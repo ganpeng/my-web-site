@@ -26,7 +26,7 @@ const renderField = ({input, type, size, label, prefix, ref, meta: {touched, err
   )
 }
 
-const codeRenderField = ({input, type, size, label, prefix, checkMobile, getCode, meta: {touched, error}}) => {
+const codeRenderField = ({input, type, size, label, prefix, checkMobile, getCode, setError, meta: {touched, error}}) => {
   return (
     <div>
       <InputGroup compact>
@@ -38,7 +38,7 @@ const codeRenderField = ({input, type, size, label, prefix, checkMobile, getCode
           prefix={prefix}
           style={{marginBottom: '10px', width: '40%', marginRight: '20px'}}
         />
-        <CountDown count={10} checkMobile={checkMobile} getCode={getCode}/>
+        <CountDown count={10} checkMobile={checkMobile} getCode={getCode} setError={setError}/>
       </InputGroup>
       {touched && (error && <Alert type="error" message={error} showIcon={true} />)}
     </div>
@@ -70,16 +70,17 @@ class SignUpForm extends Component {
   }
 
 
-  getCode() {
+  getCode(cb) {
     const { value } = this.refs.mobileNode
-    this.props.getCode(value)
+    this.props.getCode(value, cb)
   }
 
   render() {
-    const { handleSubmit, pristine, reset, submitting } = this.props
+    const { handleSubmit, pristine, reset, submitting, globalError, setError, deleteError } = this.props
     return (
       <div className="signup-form, form">
         <h2 className="title">SignUp</h2>
+        {globalError && <Alert type="error" message={globalError} showIcon={true} closable={true} onClose={() => { console.log('delete'); deleteError() }} />}
         <form onSubmit={handleSubmit}>
           <Field
             ref="mobileNode"
@@ -95,6 +96,7 @@ class SignUpForm extends Component {
             getCode={this.getCode}
             name="code"
             type="text"
+            setError={setError}
             component={codeRenderField}
             type="text"
             label="验证码"
@@ -109,6 +111,12 @@ class SignUpForm extends Component {
             size="large"
             prefix={<Icon type="lock"/>}
           />
+          <div style={{overflow:'hidden'}}>
+            <p style={{float:'right', lineHeight: '20px'}}>
+              已经有帐号? 请
+              <Link to="/login">登录</Link>
+            </p>
+          </div>
           <div style={{marginTop: '10px'}}>
             <Button
               type="primary"

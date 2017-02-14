@@ -56,6 +56,13 @@ class LoginForm extends Component {
             size="large"
             prefix={<Icon type="lock"/>}
           />
+          <div style={{overflow:'hidden'}}>
+            <Link style={{float:'left', lineHeight: '30px'}} to="/forgetpassword">忘记密码?</Link>
+            <p style={{float:'right', lineHeight: '30px'}}>
+              还没有帐号? 请
+              <Link to="/signup">注册</Link>
+            </p>
+          </div>
           <div style={{marginTop: '10px'}}>
             <Button
               type="primary"
@@ -65,7 +72,6 @@ class LoginForm extends Component {
             >
               登录
             </Button>
-            <Link style={{float:'right', lineHeight: '30px'}} to="/forgetpassword">忘记密码?</Link>
           </div>
         </form>
       </div>

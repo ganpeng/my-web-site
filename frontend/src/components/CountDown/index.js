@@ -20,27 +20,29 @@ class CountDown extends Component {
   handleClick() {
 
     if(!this.props.checkMobile()) {
-      alert('请输入正确的手机号')
+      this.props.setError('请输入正确的手机号')
       return false
     } else {
-      if(this.state.liked) {
-        this.state.liked = false
-        this.props.getCode()
-        this.timer = setInterval(() => {
-          let count = this.state.count
-          count--
-          if (count < 1) {
-            this.setState({
-              liked: true,
-              count: this.props.count || 60
-            })
-            clearInterval(this.timer)
-            this.timer = null
-          } else {
-            this.setState({ count })
-          }
-        }, 1000)
-      }
+      this.props.getCode(()=> {
+        if(this.state.liked) {
+          this.state.liked = false
+          this.timer = setInterval(() => {
+            let count = this.state.count
+            count--
+            if (count < 1) {
+              this.setState({
+                liked: true,
+                count: this.props.count || 60
+              })
+              clearInterval(this.timer)
+              this.timer = null
+            } else {
+              this.setState({ count })
+            }
+          }, 1000)
+        }
+
+      })
 
     }
 

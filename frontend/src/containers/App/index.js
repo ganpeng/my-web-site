@@ -7,7 +7,9 @@ import LoginPage from '../LoginPage/'
 import SignUpPage from '../SignUpPage/'
 import HomePage from '../HomePage/'
 import TestPage from '../TestPage/'
+import ProfilePage from '../ProfilePage/'
 import ForgetPasswordPage from '../ForgetPasswordPage/'
+import RequireAuth from '../../utils/requireAuth'
 
 
 class App extends Component {
@@ -28,6 +30,7 @@ class App extends Component {
         <Route path="/signup" component={SignUpPage} />
         <Route path="/test" component={TestPage} />
         <Route path="/forgetpassword" component={ForgetPasswordPage} />
+        <Route path="/profile" component={RequireAuth(ProfilePage)} />
       </div>
     );
   }

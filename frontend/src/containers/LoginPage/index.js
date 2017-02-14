@@ -1,4 +1,6 @@
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux'
+import { Redirect } from 'react-router-dom'
 
 import LoginForm from '../../components/LoginForm/'
 import './style.css'
@@ -26,12 +28,24 @@ class LoginPage extends Component {
 
 
   render() {
+    const { auth: { authenticated } } = this.props
     return (
       <div className="login-form-container form-container">
-        <LoginForm onSubmit={this.handleSubmit} />
+        {
+          authenticated ? <Redirect to="/profile" /> : <LoginForm onSubmit={this.handleSubmit} />
+        }
       </div>
     );
   }
 }
 
-export default LoginPage;
+
+function mapStatesToProps(state) {
+  return {
+    auth: state.auth
+  }
+}
+
+
+
+export default connect(mapStatesToProps, {})(LoginPage);
